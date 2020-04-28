@@ -1,2 +1,31 @@
 .App {
+  height: 100vh;
+  display: grid;
+  grid-template-areas: 'main sidebar';
+  grid-template-columns: 1fr 200px;
+  grid-template-rows: auto;
 }
+
+  .App > main {
+    grid-area: main;
+    display: grid;
+    grid-template-areas: 'm' 'f';
+    grid-template-columns: auto;
+    grid-template-rows: 1fr 150px;
+  }
+
+    .App .maps-wrapper {
+      grid-area: m;
+      background-color: grey;
+    }
+
+    .App .property-list-wrapper {
+      grid-area: f;
+      background-color: khaki;
+    }
+
+  .App > aside {
+    grid-area: sidebar;
+    background-color: red;
+  }
+
