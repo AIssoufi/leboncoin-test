@@ -1,49 +1,61 @@
 // Dependencies
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Components
 import { Maps, PropertyList, SearchMenu } from './components';
 
+// Services
+import { SearchService } from './services';
+
 // CSS
 import './App.css';
 
-function App() {
+const App = () => {
+  const [isFetching, setIsFetching] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearch = (critera) => {
+    setIsFetching(true);
+    SearchService.searchProperties(critera)
+      .then((results) => {
+        setSearchResults(results);
+        setIsFetching(false);
+        setHasError(false);
+      }).catch(error => {
+        console.error(error);
+        setHasError(true);
+      }).finally(() => {
+        setIsFetching(false);
+      })
+  }
+
+  useEffect(() => {
+    handleSearch({
+      query: 'renove',
+      department: 'cher',
+      region: 'Val-de-Loire',
+      minPrice: 0,
+      maxPrice: 150000
+    });
+  }, [])
+
   return (
     <div className="App">
       <main>
         <div className="maps-wrapper">
-          <Maps />
+          <Maps results={searchResults} />
         </div>
         <div className="property-list-wrapper">
           <PropertyList
-            properties={[
-              {
-                title: 'test1',
-                imgUrl: 'https://www.leboncoin.fr/_next/static/vacances-64e946b5.jpg',
-                propertyUrl: 'https://www.leboncoin.fr/locations_gites/offres/'
-              },
-              {
-                title: 'test2',
-                imgUrl: 'https://www.leboncoin.fr/_next/static/vacances-64e946b5.jpg',
-                propertyUrl: 'https://www.leboncoin.fr/locations_gites/offres/'
-              },
-              {
-                title: 'test3',
-                imgUrl: 'https://www.leboncoin.fr/_next/static/vacances-64e946b5.jpg',
-                propertyUrl: 'https://www.leboncoin.fr/locations_gites/offres/'
-              },
-              {
-                title: 'test4',
-                imgUrl: 'https://www.leboncoin.fr/_next/static/vacances-64e946b5.jpg',
-                propertyUrl: 'https://www.leboncoin.fr/locations_gites/offres/'
-              }
-            ]}
-            isLoading={false}
+            properties={searchResults}
+            isLoading={isFetching}
+            hasError={hasError}
           />
         </div>
       </main>
       <aside>
-        <SearchMenu />
+        <SearchMenu onSearch={handleSearch} />
       </aside>
     </div>
   );

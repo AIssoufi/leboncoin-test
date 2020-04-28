@@ -1,6 +1,8 @@
+// Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// CSS
 import './Property.css';
 
 const Property = ({ title, imgUrl, propertyUrl }) => (
