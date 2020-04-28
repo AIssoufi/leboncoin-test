@@ -1,0 +1,14 @@
+.property-list-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.property-list-container > .property-item {
+  margin: 5px 1px;
+  list-style: none;
+}

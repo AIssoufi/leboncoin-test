@@ -22,6 +22,8 @@
     .App .property-list-wrapper {
       grid-area: f;
       background-color: khaki;
+      display: flex;
+      justify-items: center;
     }
 
   .App > aside {

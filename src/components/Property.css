@@ -1,0 +1,25 @@
+.property-container {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  max-width: 100px;
+  width: 100%;
+}
+
+.property-container > .property-img-container {
+  width: 100%;
+}
+
+.property-container > .property-img-container img {
+  width: 100%;
+  height: auto;
+}
+
+.property-container > .title {
+  text-align: center;
+  margin: 5px 0 0 0;
+}
+
+.property-container > .title > a {
+  text-decoration: none;
+}
